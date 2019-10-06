@@ -503,9 +503,9 @@ commands:
     steps:
       - aws-cli/install
       - aws-cli/configure:
-          aws-access-key-id: << parameters.aws-access-key-id >>
-          aws-secret-access-key: << parameters.aws-secret-access-key >>
-          aws-region: << parameters.aws-region >>
+          aws-access-key-id: $<< parameters.aws-access-key-id >>
+          aws-secret-access-key: $<< parameters.aws-secret-access-key >>
+          aws-region: $<< parameters.aws-region >>
       - run:
           name: Register new task definition
           command: |
