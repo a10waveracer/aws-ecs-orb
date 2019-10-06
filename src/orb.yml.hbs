@@ -1,6 +1,6 @@
 version: 2.1
 description: |
-  An orb for working with Amazon Elastic Container Service (ECS) w/JSON support
+  An orb for working with Amazon Elastic Container Service (ECS)
 
 orbs:
   aws-cli: circleci/aws-cli@0.1.4
@@ -476,13 +476,12 @@ commands:
             echo "Registered task definition: ${REVISION}"
             echo "export CCI_ORB_AWS_ECS_REGISTERED_TASK_DFN='${REVISION}'" >> $BASH_ENV
   update-task-definition-cli-input-json:
-    description: Registers a task definition based on a local json file.
+    description: Registers a task definition based on a json file.
     parameters:
       task-definition-json:
         description: |
-          Use this to update the task definition based upon a .json task definition file.
+          Location of your .json task definition file.
         type: string
-        default: ""
       aws-access-key-id:
         default: AWS_ACCESS_KEY_ID
         description: >
@@ -496,11 +495,12 @@ commands:
           variable you will set to hold this value, i.e. AWS_SECRET_ACCESS_KEY.
         type: env_var_name
       aws-region:
-        description:
-          AWS region to operate in. Defaulted to $AWS_REGION
-        type: env_var_name
         default: AWS_REGION
+        description:
+          Name of env var storing your AWS region information, defaults to AWS_REGION
+        type: env_var_name
     steps:
+      - checkout
       - aws-cli/install
       - aws-cli/configure:
           aws-access-key-id: $<< parameters.aws-access-key-id >>
